@@ -21,6 +21,94 @@
 
 ## ⭐Source Code
 
+### LoginCheck
+```
+try{
+    String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
+     String dbId = "SCOTT";
+     String dbPass = "TIGER";
+   
+    Class.forName("oracle.jdbc.driver.OracleDriver");
+    con = DriverManager.getConnection(jdbcUrl,dbId ,dbPass );
+    
+    String id = request.getParameter("id");
+    String pw = request.getParameter("pw");
+    
+    
+    String sql = "select * from mylogin where id = ?";
+    PreparedStatement pstmt = con.prepareStatement(sql);
+    
+    pstmt.setString(1, id);
+    ResultSet rs = pstmt.executeQuery();
+    
+      if(rs.next()){
+         if(pw.equals(rs.getString("pw"))){
+            request.getRequestDispatcher("template.jsp").forward(request, response);
+         }
+      }
+      else{
+         String url = "showError.jsp";
+         request.getRequestDispatcher(url).forward(request, response);
+      }   
+     }catch(Exception e){ 
+       e.printStackTrace();
+```
+
+### LoginCheck 2
+```
+try{
+    String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
+     String dbId = "SCOTT";
+     String dbPass = "TIGER";
+   
+    Class.forName("oracle.jdbc.driver.OracleDriver");
+    con = DriverManager.getConnection(jdbcUrl,dbId ,dbPass );
+    
+    String id = request.getParameter("id");
+    String pw = request.getParameter("pw");
+    
+    
+    String sql = "select * from mylogin where id = ?";
+    PreparedStatement pstmt = con.prepareStatement(sql);
+    
+    pstmt.setString(1, id);
+    ResultSet rs = pstmt.executeQuery();
+    
+      if(rs.next()){
+         if(pw.equals(rs.getString("pw"))){
+            request.getRequestDispatcher("template.jsp").forward(request, response);
+         }
+      }
+      else{
+         String url = "showError.jsp";
+         request.getRequestDispatcher(url).forward(request, response);
+      }   
+     }catch(Exception e){ 
+       e.printStackTrace();
+```
+### Sign Up
+```
+public static boolean addLogin(LoginDTO log) throws SQLException{
+      Connection con = null;
+      PreparedStatement pstmt = null;
+      try{
+         con = DBUtil.getConnection();
+         pstmt = con.prepareStatement("insert into mylogin values(?, ?, ? )");
+         pstmt.setString(1, log.getId());
+         pstmt.setString(2, log.getPw());
+         pstmt.setString(3, log.getEmail());
+         
+         int result = pstmt.executeUpdate();
+      
+         if(result == 1){
+            return true;
+         }
+      }finally{
+         DBUtil.close(con, pstmt);
+      }
+      return false;
+   }
+```
 
 ## ☀️ Review
 
