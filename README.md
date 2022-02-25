@@ -1,7 +1,5 @@
 # JavaWeb-mini-project
 
-# HTML_MiniProject
-
 ## 🥇 Team Members
 ###  이정훈
   * HTML, CSS 템플릿 참고 및 게시판 등록
